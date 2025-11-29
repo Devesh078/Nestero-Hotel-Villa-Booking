@@ -9,8 +9,8 @@ const {storage} = require("../cloudconfig.js");
 const upload = multer({storage});
 
 router.use((req, res, next) => {
-  console.log("➡️  ROUTE HIT:", req.method, req.originalUrl);
-  next();
+ console.log("ROUTE HIT:", req.method, req.originalUrl);
+ next();
 });
 
 // -----------------------------------------------------
@@ -132,9 +132,9 @@ router
     wrapAsync(listingController.updatelisting)
 )
 .delete(
-    isLoggedIn,
-    isOwner,
-    wrapAsync (listingController.deletelisting)
+isLoggedIn,
+isOwner,
+wrapAsync (listingController.deletelisting)
 );
 
 

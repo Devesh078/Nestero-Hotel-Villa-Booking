@@ -28,14 +28,14 @@ router.post("/:listingId", wrapAsync(async (req, res) => {
   });
 
   try {
-    console.log("🟡 Saving booking...");
+    console.log("Saving booking...");
     const savePromise = newBooking.save();
     const timeoutPromise = new Promise((_, reject) =>
       setTimeout(() => reject(new Error("Database write timed out (10s).")), 10000)
     );
 
     await Promise.race([savePromise, timeoutPromise]);
-    console.log("✅ Booking saved successfully!");
+    console.log("Booking saved successfully!");
 
     const confirmedListing = await Listing.findById(listingId, 'title');
 

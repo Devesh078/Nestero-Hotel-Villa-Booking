@@ -15,37 +15,41 @@
         </div>
     </div>
     
-    <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3 g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-3 mt-3">
+
         
         <% for(let listing of allListings){%>
         
-            <div class="card col listing-card">
-        
-                <a href="/listings/<%= listing._id %>" class="listing-link">
-                    <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
-                    <div class="card-img-overlay"></div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            <b><%=listing.title %></b> <br>
-                            &#8377; <%= typeof listing.price === 'number' ? listing.price.toLocaleString("en-IN") : "N/A" %> / night
-                            <i class="tax-info"> &nbsp;+18%GST</i>
-                        </p>
-                    </div>
-                </a>
-                
-                <form 
-                    action="/listings/<%= listing._id %>/confirm-booking" 
-                    method="GET" 
-                    style="position: absolute; bottom: 10px; left: 10px; z-index: 5;">
-                    
-                    <button type="submit" class="new-reserve-action btn btn-danger">
-                        Reserve
-                    </button>
-                    
+           <div class="col mb-4">
+    <div class="card listing-card shadow-sm">
+
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+            <img 
+                src="<%= listing.image.url %>" 
+                class="card-img-top img-fluid" 
+                alt="listing_image"
+                style="height: 20rem; object-fit: cover; border-radius: 10px 10px 0 0;"
+            >
+        </a>
+
+        <div class="card-body">
+
+            <p class="card-text mb-2">
+                <b><%= listing.title %></b><br>
+                ₹ <%= listing.price.toLocaleString("en-IN") %> / night
+                <i class="tax-info">&nbsp;+18% GST</i>
+            </p>
+
+            <form action="/listings/<%= listing._id %>/confirm-booking" method="GET">
+                <button type="submit" class="btn btn-danger w-100">
+                    Reserve
+                </button>
                 </form>
-        
+
             </div>
-        
+
+            </div>
+            </div>    
         <%} %>
         
     </div>
