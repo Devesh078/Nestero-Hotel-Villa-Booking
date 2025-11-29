@@ -1,0 +1,78 @@
+<% layout("Layout/boilerplate") %>
+<div class="row mt-3">
+    <div class="col-8 offset-2">
+        <h3>Book Reservation for <%= listing.title %></h3>
+        <hr>
+        
+        <form 
+            method="POST" 
+            action="/listings/<%= listing._id %>/reserve" 
+            novalidate 
+            class="needs-validation"
+        >
+            <input type="hidden" name="booking[listingId]" value="<%= listing._id %>">
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input 
+                    name="booking[name]" 
+                    value="<%= currUser ? currUser.username : '' %>" 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Your Name" 
+                    required
+                />
+                <div class="invalid-feedback">Full Name is required.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email ID</label>
+                <input 
+                    name="booking[email]" 
+                    value="<%= currUser ? currUser.email : '' %>" 
+                    type="email" 
+                    class="form-control" 
+                    placeholder="Your Email Address"
+                    required
+                />
+                <div class="invalid-feedback">A valid Email ID is required.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input 
+                    name="booking[phone]" 
+                    type="tel" 
+                    class="form-control" 
+                    placeholder="e.g., +91 9876543210"
+                    required
+                />
+                <div class="invalid-feedback">Phone Number is required.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Home Address</label>
+                <textarea 
+                    name="booking[address]" 
+                    class="form-control" 
+                    rows="3"
+                    placeholder="Your Current Home Address"
+                    required
+                ></textarea>
+                <div class="invalid-feedback">Home Address is required.</div>
+            </div>
+            
+            <div class="mb-3 mt-4">
+                <h5>Payment Details</h5>
+                <p class="text-muted">
+                    Your current total is: **&#8377; <%= listing.price.toLocaleString("en-IN") %>/night**. <br>
+                    A secure payment link will be sent to **<%= currUser ? currUser.email : 'your provided email' %>** after confirming the booking request.
+                </p>
+            </div>
+            
+            <button type="submit" class="btn btn-danger mt-3">
+                Confirm Booking
+            </button>
+        </form>
+    </div>
+</div>

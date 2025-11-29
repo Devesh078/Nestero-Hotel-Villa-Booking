@@ -12,7 +12,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder:'Wanderlust_DEV',
+    folder:'Nestero',
     allowedFormats: ["png", 'jpg', 'jpeg'],
   },
 });

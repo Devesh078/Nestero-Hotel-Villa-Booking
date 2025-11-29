@@ -1,0 +1,66 @@
+<% layout("/Layout/boilerplate") %>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-8 offset-2">
+            <h3>Confirm Booking for: <%= listing.title %></h3>
+            
+            <p class="text-secondary">
+                Price per night: ₹ <%= listing.price.toLocaleString("en-IN") %>
+                <strong class="text-danger">
+                    | Total est. (with 18% GST): ₹ 
+                    <%= (listing.price * 1.18).toLocaleString("en-IN") %>
+                </strong>
+            </p>
+            <hr>
+
+            <form action="/bookings/<%= listing._id %>" method="POST">
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input name="name" id="name" type="text" class="form-control" placeholder="Your full name" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Your Address</label>
+                    <textarea name="address" id="address" class="form-control" placeholder="Your current address" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input name="phone" id="phone" type="tel" class="form-control" placeholder="e.g., +91 9876543210" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="adults" class="form-label">Adults</label>
+                    <input name="adults" id="adults" type="number" class="form-control" min="1" placeholder="Select Adults" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="children" class="form-label">Children</label>
+                    <input name="children" id="children" type="number" class="form-control" min="0" placeholder="Select Children" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="bookingDate" class="form-label">Select Booking Date</label>
+                    <input name="bookingDate" id="bookingDate" type="date" class="form-control" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email ID</label>
+                    <input name="email" id="email" type="email" class="form-control" placeholder="e.g., user@example.com" required/>
+                </div>
+
+                <button type="submit" class="btn btn-danger mb-3">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Script to prevent selecting current and past dates -->
+<script>
+    const today = new Date();
+    today.setDate(today.getDate() + 1); // minimum = tomorrow
+    const minDate = today.toISOString().split("T")[0];
+    document.getElementById("bookingDate").setAttribute("min", minDate);
+</script>
+
